@@ -52,8 +52,22 @@ let actualizar = (descripcion, completado = true) => {
     }
 };
 
+let borrar = (descripcion) => {
+    cargarInfo();
+    let nuevoListado = listadoPorHacer.filter((tarea) => tarea.descripcion !== descripcion);
+
+    if (nuevoListado.length === listadoPorHacer.length) {
+        return false;
+    } else {
+        listadoPorHacer = nuevoListado;
+        guardarInfo();
+        return true;
+    }
+};
+
 module.exports = {
     crearTarea,
     getListado,
-    actualizar
+    actualizar,
+    borrar
 };
