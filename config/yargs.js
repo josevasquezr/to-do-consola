@@ -13,6 +13,7 @@ let completado = {
 const argv = require('yargs')
     .command('crear', 'Crear un elemento por hacer', { descripcion })
     .command('borrar', 'Borrar un elemento por hacer', { descripcion })
+    .command('listar', 'Muestra una lista de todas las tareas', {})
     .command('actualizar', 'Actualiza el estado completado de una tarea', {
         descripcion,
         completado
