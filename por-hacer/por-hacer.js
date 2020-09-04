@@ -33,22 +33,52 @@ let cargarInfo = () => {
     }
 };
 
-let getListado = () => {
+let getListado = (completado) => {
     cargarInfo();
-    return listadoPorHacer;
+
+    try {
+        let listado = [];
+
+        switch (completado) {
+            case 't':
+                listado = listadoPorHacer;
+                break;
+
+            case 'true':
+                listado = listadoPorHacer.filter(tarea => tarea.completado === true);
+                break;
+
+            case 'false':
+                listado = listadoPorHacer.filter(tarea => tarea.completado === false);
+                break;
+
+            default:
+                throw new Error("Valor de completado incorrecto.");
+                break;
+        }
+
+        return listado;
+
+    } catch (err) {
+        throw err;
+    }
 };
 
-let actualizar = (descripcion, completado = true) => {
+let actualizar = (descripcion, realizado = true) => {
     cargarInfo();
+    console.log(realizado);
+    try {
+        let index = listadoPorHacer.findIndex(tarea => tarea.descripcion === descripcion);
 
-    let index = listadoPorHacer.findIndex(tarea => tarea.descripcion === descripcion);
-
-    if (index >= 0) {
-        listadoPorHacer[index].completado = completado;
-        guardarInfo();
-        return true;
-    } else {
-        return false;
+        if (index >= 0) {
+            listadoPorHacer[index].completado = (realizado === 'true' && true);
+            guardarInfo();
+            return true;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        throw new Error('Error al actualizar tarea', err);
     }
 };
 
